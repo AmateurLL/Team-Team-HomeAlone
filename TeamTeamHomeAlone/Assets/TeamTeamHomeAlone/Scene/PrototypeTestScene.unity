@@ -1358,7 +1358,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh16758
+  m_Name: pb_Mesh16546
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -2520,6 +2520,11 @@ Prefab:
     - target: {fileID: 1004951778727956, guid: 944bcd0396c65fb438f96f98bb2887d6, type: 2}
       propertyPath: m_TagString
       value: Flashlight
+      objectReference: {fileID: 0}
+    - target: {fileID: 23327359848487730, guid: 944bcd0396c65fb438f96f98bb2887d6,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 944bcd0396c65fb438f96f98bb2887d6, type: 2}
