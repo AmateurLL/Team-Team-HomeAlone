@@ -8,6 +8,9 @@ public class GhostManager : MonoBehaviour
     public GameObject[] GhostTargets = new GameObject[3];
     public GameObject[] GhostSpawners = new GameObject[3];
     static public GhostManager instance;
+    int LastWaveCount = 0;
+    int NewWaveCount = 1;
+    public int SpawnWaveCount;
     // Use this for initialization
     void Awake()
     {
@@ -29,20 +32,28 @@ public class GhostManager : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.P)) { SpawnGhost(Random.Range(1, 3)); }
+            if (Input.GetKeyDown(KeyCode.P)) { SpawnGhost(3); }
         }
+    }
+
+    public void SpawnWaveDelay()
+    {
+        Debug.Log("Spawn Wave Delay - 5 Seconds");
+        Invoke("SpawnWave", 0.05f);
+    }
+
+    void SpawnWave()
+    {
+        Debug.Log("Spawn Wave");
+        SpawnWaveCount = NewWaveCount + LastWaveCount;
+        SpawnGhost(SpawnWaveCount);
+        NewWaveCount = NewWaveCount + LastWaveCount;
+        LastWaveCount = NewWaveCount - LastWaveCount;
     }
 
     void SpawnGhost(int i)
     {
         int randomspawner;
-        /*
-        Instantiate(GhostObject, GhostSpawners[0].transform.position, Quaternion.identity);
-        Instantiate(GhostObject, GhostSpawners[1].transform.position, Quaternion.identity);
-        Instantiate(GhostObject, GhostSpawners[2].transform.position, Quaternion.identity);
-        Instantiate(GhostObject, GhostSpawners[3].transform.position, Quaternion.identity);
-        Instantiate(GhostObject, GhostSpawners[4].transform.position, Quaternion.identity);//*/
-        //*
         for (int j = 0; j < i; j++)
         {
             randomspawner = Random.Range(1, 6);
@@ -76,6 +87,6 @@ public class GhostManager : MonoBehaviour
                     }
                 default: break;
             }
-        }//*/
+        }
     }
 }
