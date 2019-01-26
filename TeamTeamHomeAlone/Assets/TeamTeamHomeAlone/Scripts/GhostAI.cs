@@ -18,7 +18,7 @@ public class GhostAI : MonoBehaviour
         agent = this.gameObject.GetComponent<NavMeshAgent>();
         Target = Random.Range(0, 3);
         agent.destination = GhostManager.instance.GhostTargets[Target].transform.position;
-        Debug.Log("Ghost Spawned! Target:" + Target);
+        //Debug.Log("Ghost Spawned! Target:" + Target);
     }
 
     // Update is called once per frame
@@ -40,7 +40,7 @@ public class GhostAI : MonoBehaviour
             {
                 PopProgress--;
             }
-            this.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+            this.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
         }
         else
         {//caught
@@ -61,29 +61,37 @@ public class GhostAI : MonoBehaviour
 
         if (Tic > 1.0f)
         {
+            agent.destination = GhostManager.instance.GhostTargets[Target].transform.position;
             Tic = 0f;
         }
     }
    
     void OnTriggerStay(Collider _col)
     {
-        Debug.Log("Ghost Colliding");
+        //Debug.Log("Ghost Colliding");
         if (_col.gameObject.tag == "Lure")
         {
-            //navmesh target changed to lure
-            agent.destination = _col.gameObject.transform.position;
-            Debug.Log("Breaking Lure");
-            _col.gameObject.GetComponent<Lure>().Durability -= 0.1f;
             if (_col.gameObject.GetComponent<Lure>().Durability < 0f)
             {
-                Target = Random.Range(0, 3);
+                Target++;
+                if (Target > 2)
+                {
+                    Target = 0;
+                }
                 agent.destination = GhostManager.instance.GhostTargets[Target].transform.position;
-                Debug.Log("Lure Broke! Target:" + Target);
             }
-        }
-        else if (_col.gameObject.tag == "Trap")
-        {
-
+            else
+            {
+                //navmesh target changed to lure
+                agent.destination = _col.gameObject.transform.position;
+                //Debug.Log("Breaking Lure");
+                _col.gameObject.GetComponent<Lure>().Durability -= 0.1f;
+                if (_col.gameObject.GetComponent<Lure>().Durability < 0f)
+                {
+                    agent.destination = GhostManager.instance.GhostTargets[Target].transform.position;
+                    // Debug.Log("Lure Broke! Target:" + Target);
+                }
+            }
         }
         else if (_col.gameObject.tag == "Target")
         {
@@ -103,7 +111,7 @@ public class GhostAI : MonoBehaviour
                 {
                     Target = Random.Range(0, 3);
                     agent.destination = GhostManager.instance.GhostTargets[Target].transform.position;
-                    Debug.Log("Target Destroyed! New Target:" + Target);
+                    //Debug.Log("Target Destroyed! New Target:" + Target);
                 }
             }
         }
@@ -113,17 +121,15 @@ public class GhostAI : MonoBehaviour
         }
         else if (_col.gameObject.tag == "Flashlight" && _col.gameObject.GetComponent<Light>().enabled)
         {
-            Debug.Log("Ghost stuck in light");
+            //Debug.Log("Ghost stuck in light");
             this.gameObject.GetComponent<GhostAI>().CaughtInUV = true;
         }
     }
     void OnTriggerEnter(Collider _col)
     {
-        Debug.Log(_col.gameObject.name);
-        Debug.Log(_col.gameObject.tag);
         if (_col.gameObject.tag == "Flashlight" && _col.gameObject.GetComponent<Light>().enabled)
         {
-            Debug.Log("Ghost entered light");
+            //Debug.Log("Ghost entered light");
             this.gameObject.GetComponent<GhostAI>().CaughtInUV = true;
         }
     }
@@ -131,13 +137,17 @@ public class GhostAI : MonoBehaviour
     {
         if (_col.gameObject.tag == "Flashlight" && _col.gameObject.GetComponent<Light>().enabled)
         {
-            Debug.Log("Ghost left light");
+            //Debug.Log("Ghost left light");
             this.gameObject.GetComponent<GhostAI>().CaughtInUV = false;
         }
     }
     void Pop()
     {
-        Debug.Log("Popped Ghost!");
+        //Debug.Log("Popped Ghost!");
+        if (FindObjectsOfType<GhostAI>().Length == 1)
+        {
+            GhostManager.instance.SpawnWaveDelay();
+        }
         Destroy(this.gameObject);
     }
 }

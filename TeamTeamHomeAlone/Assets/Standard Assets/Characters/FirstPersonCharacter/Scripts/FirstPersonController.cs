@@ -46,7 +46,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private bool m_bTorchLight = false;
         private bool m_ActivateTorch = false;
-        private float m_fSprintTime = 30.0f;
+        public float m_fSprintTime = 8.0f;
 
         // Use this for initialization
         private void Start()
@@ -237,9 +237,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
             m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
-            if (m_fSprintTime >= 0.0f)
+            if (!m_IsWalking)
             {
-                m_IsWalking = true;
+                m_fSprintTime -= Time.deltaTime;
+
+                if (m_fSprintTime < 0.0f)
+                {
+                    m_IsWalking = true;
+                }
+                else
+                {
+                    if (m_fSprintTime > 3.0f)
+                    {
+                        m_fSprintTime += Time.deltaTime;
+                    }
+                }
             }
 #endif
             // set the desired speed to be walking or running
@@ -260,10 +272,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
             }
 
-            if (!m_IsWalking)
-            {
-                m_fSprintTime -= Time.fixedDeltaTime;
-            }
+            
 
         }
 
