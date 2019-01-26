@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Target : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class Target : MonoBehaviour
+{
+    public float Durability = 100f;
+    void Update()
+    {
+        if (Durability < 0f)
+        {
+            Debug.Log("Lure Broke");
+            Destroy(this.gameObject);
+        }
+    }
 }

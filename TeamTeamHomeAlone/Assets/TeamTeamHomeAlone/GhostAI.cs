@@ -80,7 +80,13 @@ public class GhostAI : MonoBehaviour
         }
         else if (_col.gameObject.tag == "Target")
         {
-
+            _col.gameObject.GetComponent<Target>().Durability -= 0.1f;
+            if (_col.gameObject.GetComponent<Target>().Durability < 0f)
+            {
+                int h = Random.Range(0, 3);
+                agent.destination = GhostManager.instance.GhostTargets[h].transform.position;
+                Debug.Log("Target Destroyed! New Target:" + h);
+            }
         }
         else if (_col.gameObject.tag == "Ghost")
         {
