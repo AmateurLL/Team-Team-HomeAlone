@@ -42,7 +42,7 @@ public class CSS_Player : MonoBehaviour {
         //{
         //    m_PickedUpObj.transform.position = m_LeftHand.transform.position;
         //}
-
+        this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ConeCollider>().enabled = this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Light>().enabled;
     }
 
     void OnTriggerEnter(Collider Col)

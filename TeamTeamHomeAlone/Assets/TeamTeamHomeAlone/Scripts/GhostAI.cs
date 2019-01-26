@@ -93,10 +93,6 @@ public class GhostAI : MonoBehaviour
                 }
             }
         }
-        else if (_col.gameObject.tag == "Trap")
-        {
-
-        }
         else if (_col.gameObject.tag == "Target")
         {
             if (_col.gameObject.GetComponent<Target>().Durability < 0f)
