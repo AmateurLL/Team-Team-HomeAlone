@@ -8,6 +8,7 @@ TagManager:
   - Lure
   - Trap
   - Target
+  - Item
   layers:
   - Default
   - TransparentFX
