@@ -14,7 +14,6 @@ public class GhostManager : MonoBehaviour
         if (instance == null)
             instance = this;
     }
-
     void Destroy()
     {
         if (instance == this)
@@ -30,7 +29,7 @@ public class GhostManager : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.A)) { SpawnGhost(Random.Range(1, 3)); }
+            if (Input.GetKeyDown(KeyCode.P)) { SpawnGhost(Random.Range(1, 3)); }
         }
     }
 

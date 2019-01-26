@@ -8,6 +8,7 @@ TagManager:
   - Lure
   - Trap
   - Target
+  - Flashlight
   layers:
   - Default
   - TransparentFX

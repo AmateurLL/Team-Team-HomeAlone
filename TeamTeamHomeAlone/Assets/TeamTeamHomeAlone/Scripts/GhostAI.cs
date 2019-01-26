@@ -32,24 +32,31 @@ public class GhostAI : MonoBehaviour
         }
 
         if (!CaughtInUV)
-        {//caught in uv light
-            VectorMultiplier = Mathf.Sin(Time.time) / 100;// ghost bobbing
-            GhostBody.transform.position += new Vector3(0, VectorMultiplier, 0);
+        {//not caught in uv light            
+            agent.speed = 3.5f;
+            agent.acceleration = 8f;
 
             if (PopProgress > 0.0f && Tic > 1.0f)//not in light, lower pop progress
             {
                 PopProgress--;
             }
+            this.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
         }
         else
-        {//not caught
-            VectorMultiplier = 0.01f;
+        {//caught
+            VectorMultiplier = Mathf.Sin(Time.time) / 100;// ghost bobbing
+            GhostBody.transform.position += new Vector3(0, VectorMultiplier, 0);
+            VectorMultiplier = 0.02f;
             GhostBody.transform.localScale += (new Vector3(VectorMultiplier, VectorMultiplier, VectorMultiplier));
             PopProgress += Time.deltaTime * 100;
+            agent.velocity = new Vector3(0f, 0f, 0f);
+            agent.speed = 0f;
+            agent.acceleration = 0f;
             if (PopProgress > 100f)
             {
-                Pop();
+               Pop();
             }
+            this.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
         }
 
         if (Tic > 1.0f)
@@ -57,7 +64,7 @@ public class GhostAI : MonoBehaviour
             Tic = 0f;
         }
     }
-
+   
     void OnTriggerStay(Collider _col)
     {
         Debug.Log("Ghost Colliding");
@@ -104,11 +111,33 @@ public class GhostAI : MonoBehaviour
         {
             Physics.IgnoreCollision(this.GetComponent<Collider>(), _col);
         }
+        else if (_col.gameObject.tag == "Flashlight" && _col.gameObject.GetComponent<Light>().enabled)
+        {
+            Debug.Log("Ghost stuck in light");
+            this.gameObject.GetComponent<GhostAI>().CaughtInUV = true;
+        }
     }
-
+    void OnTriggerEnter(Collider _col)
+    {
+        Debug.Log(_col.gameObject.name);
+        Debug.Log(_col.gameObject.tag);
+        if (_col.gameObject.tag == "Flashlight" && _col.gameObject.GetComponent<Light>().enabled)
+        {
+            Debug.Log("Ghost entered light");
+            this.gameObject.GetComponent<GhostAI>().CaughtInUV = true;
+        }
+    }
+    void OnTriggerExit(Collider _col)
+    {
+        if (_col.gameObject.tag == "Flashlight" && _col.gameObject.GetComponent<Light>().enabled)
+        {
+            Debug.Log("Ghost left light");
+            this.gameObject.GetComponent<GhostAI>().CaughtInUV = false;
+        }
+    }
     void Pop()
     {
         Debug.Log("Popped Ghost!");
-        //Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 }

@@ -104,21 +104,6 @@ public class ConeCollider : MonoBehaviour {
         obj.name = name;
         return obj;
     }
-
-    void OnTriggerEnter(Collider _col)
-    {
-        if (_col.gameObject.tag == "Ghost" && this.gameObject.GetComponent<Light>.enabled)
-        {
-            _col.gameObject.GetComponent<GhostAI>().CaughtInUV = true;
-        }
-    }
-    void OnTriggerExit(Collider _col)
-    {
-        if (_col.gameObject.tag == "Ghost" && this.gameObject.GetComponent<Light>.enabled)
-        {
-            _col.gameObject.GetComponent<GhostAI>().CaughtInUV = false;
-        }
-    }
 }
 
 
