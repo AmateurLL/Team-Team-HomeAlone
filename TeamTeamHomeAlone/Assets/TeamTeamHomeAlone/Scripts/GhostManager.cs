@@ -23,6 +23,11 @@ public class GhostManager : MonoBehaviour
             instance = null;
     }
 
+    void Start()
+    {
+        Invoke("SpawnWave", 30.0f);
+    }
+
     // Update is called once per frame
     void Update()
     {
