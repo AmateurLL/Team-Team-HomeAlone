@@ -8,12 +8,12 @@ public class CSS_Player : MonoBehaviour {
     public GameObject m_PickedUpObj;
     public GameObject m_LeftHand;
     private bool m_bLeftHandFree =  true;
-    //public Collider m_PickUpArea;
+    public Collider m_PickUpArea;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    void start()
+    {
+        m_PickUpArea = GetComponent<BoxCollider>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -61,7 +61,7 @@ public class CSS_Player : MonoBehaviour {
     {
         if(col.gameObject.tag == "Item" && col.gameObject == m_PickedUpObj)
         {
-            if(m_bLeftHandFree == false)
+            if(m_bLeftHandFree == true)
             {
                 m_PickedUpObj = null;
             }
