@@ -9,27 +9,27 @@ public class GhostAI : MonoBehaviour
     [SerializeField] private float Tic = 0.0f;
     [SerializeField] float VectorMultiplier;
     [SerializeField] GameObject GhostBody;
+    public int Target = 0;
     public bool CaughtInUV = false;
     NavMeshAgent agent;
-    
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         agent = this.gameObject.GetComponent<NavMeshAgent>();
-        int h = Random.Range(0, 3);
-        agent.destination = GhostManager.instance.GhostTargets[h].transform.position;
-        Debug.Log("Ghost Spawned! Target:" + h);
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        Target = Random.Range(0, 3);
+        agent.destination = GhostManager.instance.GhostTargets[Target].transform.position;
+        Debug.Log("Ghost Spawned! Target:" + Target);
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         Tic += Time.deltaTime;
 
         if (PopProgress > 100f)
         {
             //do stuff
-        }       
+        }
 
         if (!CaughtInUV)
         {//caught in uv light
@@ -56,7 +56,7 @@ public class GhostAI : MonoBehaviour
         {
             Tic = 0f;
         }
-	}
+    }
 
     void OnTriggerStay(Collider _col)
     {
@@ -69,9 +69,9 @@ public class GhostAI : MonoBehaviour
             _col.gameObject.GetComponent<Lure>().Durability -= 0.1f;
             if (_col.gameObject.GetComponent<Lure>().Durability < 0f)
             {
-                int h = Random.Range(0, 3);
-                agent.destination = GhostManager.instance.GhostTargets[h].transform.position;
-                Debug.Log("Lure Broke! Target:" + h);
+                Target = Random.Range(0, 3);
+                agent.destination = GhostManager.instance.GhostTargets[Target].transform.position;
+                Debug.Log("Lure Broke! Target:" + Target);
             }
         }
         else if (_col.gameObject.tag == "Trap")
@@ -80,19 +80,31 @@ public class GhostAI : MonoBehaviour
         }
         else if (_col.gameObject.tag == "Target")
         {
-            _col.gameObject.GetComponent<Target>().Durability -= 0.1f;
             if (_col.gameObject.GetComponent<Target>().Durability < 0f)
             {
-                int h = Random.Range(0, 3);
-                agent.destination = GhostManager.instance.GhostTargets[h].transform.position;
-                Debug.Log("Target Destroyed! New Target:" + h);
+                Target++;
+                if (Target > 2)
+                {
+                    Target = 0;
+                }
+                agent.destination = GhostManager.instance.GhostTargets[Target].transform.position;
+            }
+            else
+            {
+                _col.gameObject.GetComponent<Target>().Durability -= 0.1f;
+                if (_col.gameObject.GetComponent<Target>().Durability < 0f)
+                {
+                    Target = Random.Range(0, 3);
+                    agent.destination = GhostManager.instance.GhostTargets[Target].transform.position;
+                    Debug.Log("Target Destroyed! New Target:" + Target);
+                }
             }
         }
         else if (_col.gameObject.tag == "Ghost")
         {
             Physics.IgnoreCollision(this.GetComponent<Collider>(), _col);
         }
-    }    
+    }
 
     void Pop()
     {

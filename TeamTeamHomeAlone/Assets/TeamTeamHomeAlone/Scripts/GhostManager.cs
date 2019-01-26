@@ -9,23 +9,30 @@ public class GhostManager : MonoBehaviour
     public GameObject[] GhostSpawners = new GameObject[3];
     static public GhostManager instance;
     // Use this for initialization
-    void Awake ()
+    void Awake()
     {
         if (instance == null)
             instance = this;
-	}
+    }
 
     void Destroy()
     {
         if (instance == this)
             instance = null;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
-		if (Input.GetKeyDown(KeyCode.A)) { SpawnGhost(Random.Range(1, 3)); }
-	}
+        if (GhostTargets[0].GetComponent<Target>().Durability <= 0.0f && GhostTargets[1].GetComponent<Target>().Durability <= 0.0f && GhostTargets[2].GetComponent<Target>().Durability <= 0.0f)
+        {
+            Debug.Log("Ghosts Win!");
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.A)) { SpawnGhost(Random.Range(1, 3)); }
+        }
+    }
 
     void SpawnGhost(int i)
     {
