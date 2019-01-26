@@ -87,14 +87,6 @@ public class ConeCollider : MonoBehaviour {
         }
     }
 
-    private void Start() {
-
-    }
-
-    private void Update() {
-
-    }
-
     GameObject DebugObject(Vector3 pos, float scale = 1.0f, string name = "Sphere")
     {
         //デバッグ

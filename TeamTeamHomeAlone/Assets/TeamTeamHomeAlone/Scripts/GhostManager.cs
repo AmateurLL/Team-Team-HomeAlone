@@ -29,6 +29,7 @@ public class GhostManager : MonoBehaviour
         if (GhostTargets[0].GetComponent<Target>().Durability <= 0.0f && GhostTargets[1].GetComponent<Target>().Durability <= 0.0f && GhostTargets[2].GetComponent<Target>().Durability <= 0.0f)
         {
             Debug.Log("Ghosts Win!");
+            CSS_GameManager.instance.RestartGame();
         }
         else
         {
