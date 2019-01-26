@@ -69,7 +69,7 @@ public class GhostAI : MonoBehaviour
     void OnTriggerStay(Collider _col)
     {
         //Debug.Log("Ghost Colliding");
-        if (_col.gameObject.tag == "Lure")
+        if (_col.gameObject.tag == "Lure" && _col.GetComponent<Lure>().On)
         {
             if (_col.gameObject.GetComponent<Lure>().Durability < 0f)
             {
@@ -109,11 +109,17 @@ public class GhostAI : MonoBehaviour
                 _col.gameObject.GetComponent<Target>().Durability -= 0.1f;
                 if (_col.gameObject.GetComponent<Target>().Durability < 0f)
                 {
+                    _col.gameObject.tag = "BrokenTarget";
                     Target = Random.Range(0, 3);
                     agent.destination = GhostManager.instance.GhostTargets[Target].transform.position;
                     //Debug.Log("Target Destroyed! New Target:" + Target);
                 }
             }
+        }
+        else if (_col.gameObject.tag == "BrokenTarget" && Tic > 1.0f)
+        {
+            Target = Random.Range(0, 3);
+            agent.destination = GhostManager.instance.GhostTargets[Target].transform.position;
         }
         else if (_col.gameObject.tag == "Ghost")
         {
