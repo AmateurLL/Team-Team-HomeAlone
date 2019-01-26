@@ -15,6 +15,7 @@ public class Lure : MonoBehaviour
             //Debug.Log("Lure Broke");
             //Destroy(this.gameObject);
             On = false;
+            this.GetComponent<CapsuleCollider>().enabled = false;
         }
     }
 
@@ -25,6 +26,7 @@ public class Lure : MonoBehaviour
             Debug.Log("Lure on");
             Uses--;
             On = true;
+            this.GetComponent<CapsuleCollider>().enabled = true;
             Durability = 100f;
             Destroy(_col.gameObject);
         }

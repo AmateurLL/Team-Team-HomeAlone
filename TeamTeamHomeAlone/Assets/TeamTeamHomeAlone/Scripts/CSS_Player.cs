@@ -24,7 +24,7 @@ public class CSS_Player : MonoBehaviour {
             {
                 //Throw
                 Throw();
-                Debug.Log("Fast BALL!!");
+                //Debug.Log("Fast BALL!!");
 
                 //PutDown Neatly
                 
@@ -47,7 +47,7 @@ public class CSS_Player : MonoBehaviour {
 
     void OnTriggerEnter(Collider Col)
     {
-        if(Col.gameObject.tag == "Item")
+        if(Col.gameObject.tag == "Item" || Col.gameObject.tag == "Moveable" || Col.gameObject.tag == "Lure")
         {
             if (!m_PickedUpObj)
             {
@@ -59,7 +59,9 @@ public class CSS_Player : MonoBehaviour {
 
     void OnTriggerExit(Collider col)
     {
-        if(col.gameObject.tag == "Item" && col.gameObject == m_PickedUpObj)
+        if(col.gameObject.tag == "Item" && col.gameObject == m_PickedUpObj ||
+            col.gameObject.tag == "Moveable" && col.gameObject == m_PickedUpObj ||
+            col.gameObject.tag == "Lure" && col.gameObject == m_PickedUpObj)
         {
             if(m_bLeftHandFree == true)
             {
@@ -76,12 +78,31 @@ public class CSS_Player : MonoBehaviour {
             return;
         }
 
-        m_PickedUpObj.transform.SetParent(m_LeftHand.transform);
-        m_PickedUpObj.GetComponent<Rigidbody>().useGravity = false;
-        m_PickedUpObj.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
-        m_PickedUpObj.GetComponent<SphereCollider>().enabled = false;
-        m_PickedUpObj.transform.localRotation = m_LeftHand.transform.rotation;
-        m_PickedUpObj.transform.position = m_LeftHand.transform.position;
+        
+
+        // Setting Physical properties
+        if (m_PickedUpObj.tag == "Item" || m_PickedUpObj.tag == "Moveable")
+        {
+            // Setting Position
+            m_PickedUpObj.transform.SetParent(m_LeftHand.transform);
+            m_PickedUpObj.transform.localRotation = m_LeftHand.transform.rotation;
+            m_PickedUpObj.transform.position = m_LeftHand.transform.position;
+            m_PickedUpObj.GetComponent<Rigidbody>().useGravity = false;
+            m_PickedUpObj.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            m_PickedUpObj.GetComponent<Collider>().enabled = false;
+        }
+        else if (m_PickedUpObj.tag == "Lure")
+        {
+
+            // Setting Position
+            m_PickedUpObj.transform.SetParent(m_LeftHand.transform);
+            m_PickedUpObj.transform.localRotation = m_LeftHand.transform.rotation;
+            m_PickedUpObj.transform.position = m_LeftHand.transform.position;
+            m_PickedUpObj.GetComponent<Rigidbody>().useGravity = false;
+            m_PickedUpObj.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            m_PickedUpObj.GetComponent<BoxCollider>().enabled = false;
+        }
+        
 
         m_bLeftHandFree = false;
         Debug.Log("PickingUp");
@@ -93,12 +114,25 @@ public class CSS_Player : MonoBehaviour {
         {
             return;
         }
-
-        m_PickedUpObj.GetComponent<Rigidbody>().useGravity = true;
-        m_PickedUpObj.GetComponent<SphereCollider>().enabled = true;
-        m_PickedUpObj.GetComponent<Rigidbody>().AddForce(m_LeftHand.transform.forward * fThrowForce);
         m_PickedUpObj.transform.SetParent(null);
+
+        if (m_PickedUpObj.tag == "Item" || m_PickedUpObj.tag == "Moveable")
+        {
+            m_PickedUpObj.GetComponent<Rigidbody>().useGravity = true;
+            m_PickedUpObj.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            m_PickedUpObj.GetComponent<Collider>().enabled = true;
+            m_PickedUpObj.GetComponent<Rigidbody>().AddForce(m_LeftHand.transform.forward * fThrowForce);
+        }
+        else if (m_PickedUpObj.tag == "Lure")
+        {
+            m_PickedUpObj.GetComponent<Rigidbody>().useGravity = true;
+            m_PickedUpObj.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            m_PickedUpObj.transform.localRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+            m_PickedUpObj.GetComponent<BoxCollider>().enabled = true;
+        }
+        
         m_PickedUpObj = null;
+
 
         m_bLeftHandFree = true;
     }
