@@ -7,8 +7,10 @@ TagManager:
   - Ghost
   - Lure
   - Trap
-  - Target
-  - Flashlight
+  - Moveable
+  - Moveable_Push
+  - Moveable_Float
+  - FlickeringLight
   layers:
   - Default
   - TransparentFX
