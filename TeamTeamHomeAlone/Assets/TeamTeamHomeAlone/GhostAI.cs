@@ -5,19 +5,20 @@ using UnityEngine.AI;
 
 public class GhostAI : MonoBehaviour
 {
-    [SerializeField]private float PopProgress = 0.0f;
-    [SerializeField]private float Tic = 0.0f;
-    [SerializeField]float VectorMultiplier;
+    [SerializeField] private float PopProgress = 0.0f;
+    [SerializeField] private float Tic = 0.0f;
+    [SerializeField] float VectorMultiplier;
+    [SerializeField] GameObject GhostBody;
     public bool CaughtInUV = false;
     NavMeshAgent agent;
-    [SerializeField] GameObject[] GhostTargets = new GameObject[3];
-    public Transform GhostBody;
+    
 	// Use this for initialization
 	void Start ()
     {
         agent = this.gameObject.GetComponent<NavMeshAgent>();
-        agent.destination = GhostTargets[Random.Range(0, 3)].transform.position;
-        Debug.Log("Ghost Spawned");
+        int h = Random.Range(0, 3);
+        agent.destination = GhostManager.instance.GhostTargets[h].transform.position;
+        Debug.Log("Ghost Spawned! Target:" + h);
 	}
 	
 	// Update is called once per frame
@@ -68,10 +69,24 @@ public class GhostAI : MonoBehaviour
             _col.gameObject.GetComponent<Lure>().Durability -= 0.1f;
             if (_col.gameObject.GetComponent<Lure>().Durability < 0f)
             {
-                agent.destination = GhostTargets[Random.Range(0, 3)].transform.position;
+                int h = Random.Range(0, 3);
+                agent.destination = GhostManager.instance.GhostTargets[h].transform.position;
+                Debug.Log("Lure Broke! Target:" + h);
             }
         }
-    }
+        else if (_col.gameObject.tag == "Trap")
+        {
+
+        }
+        else if (_col.gameObject.tag == "Target")
+        {
+
+        }
+        else if (_col.gameObject.tag == "Ghost")
+        {
+            Physics.IgnoreCollision(this.GetComponent<Collider>(), _col);
+        }
+    }    
 
     void Pop()
     {

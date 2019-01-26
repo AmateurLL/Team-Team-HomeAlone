@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lure : MonoBehaviour {
-
+public class Lure : MonoBehaviour
+{
     public float Durability = 100f;
 
 	// Use this for initialization
