@@ -137,9 +137,4 @@ public class CSS_Player : MonoBehaviour {
         m_bLeftHandFree = true;
     }
 
-    private void Place()
-    {
-
-    }
-
 }
