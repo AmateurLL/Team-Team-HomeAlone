@@ -11,6 +11,8 @@ TagManager:
   - Moveable_Push
   - Moveable_Float
   - FlickeringLight
+  - Target
+  - Flashlight
   layers:
   - Default
   - TransparentFX

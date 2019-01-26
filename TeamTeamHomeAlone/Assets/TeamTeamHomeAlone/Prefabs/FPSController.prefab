@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4726727626988290}
   - component: {fileID: 108598235697377330}
-  - component: {fileID: 135128449184404640}
+  - component: {fileID: 114528551537226752}
   m_Layer: 0
   m_Name: Spotlight
   m_TagString: Untagged
@@ -136,7 +136,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1704117406131308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.12, y: 0.955, z: 2.19}
+  m_LocalPosition: {x: -39.872746, y: 0, z: 35.09268}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4859017535928882}
@@ -437,6 +437,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d864454b336422d4a91eac6202339bfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114528551537226752
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1004951778727956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 544e52e7528d39543a55e8259cace9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_angle: 35
+  m_distance: 5
+  m_isTrigger: 1
+  m_isFixScale: 1
 --- !u!114 &114645249925364502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -547,18 +562,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1824376672262602}
   m_Enabled: 1
---- !u!135 &135128449184404640
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1004951778727956}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 8.621543
-  m_Center: {x: 0, y: 0.000009940711, z: 8.121502}
 --- !u!136 &136231803199029000
 CapsuleCollider:
   m_ObjectHideFlags: 1

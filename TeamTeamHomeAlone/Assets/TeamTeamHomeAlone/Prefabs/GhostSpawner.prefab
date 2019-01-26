@@ -53,3 +53,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GhostObject: {fileID: 1589141713064892, guid: 4ee230938856526439b8b2e82074a7fd,
     type: 2}
+  GhostTargets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  GhostSpawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
