@@ -21,6 +21,8 @@ namespace DigitalRuby.SoundManagerNamespace
 {
     public class SoundMusicPlayer : MonoBehaviour
     {
+        public static SoundMusicPlayer Instance;
+
         public Slider SoundSlider;
         public Slider MusicSlider;
         public InputField SoundCountTextBox;
@@ -29,6 +31,19 @@ namespace DigitalRuby.SoundManagerNamespace
         [SerializeField] List<AudioSource> SoundEffectsList = new List<AudioSource>();
         [SerializeField] List<AudioSource> MusicTracksList = new List<AudioSource>();
 
+
+        void Awake() {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(this);
+        }
+
+        void OnDestroy() {
+            if (Instance == this)
+                Instance = null;
+
+        }
 
         public void PlaySound(SoundEffects _SoundEffect)
         {
@@ -44,9 +59,9 @@ namespace DigitalRuby.SoundManagerNamespace
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1)) {
-                PlaySound(SoundEffects.GhostDeath1);
-            }
+            //if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            //    PlaySound(SoundEffects.GhostDeath1);
+            //}
 
         }
 
