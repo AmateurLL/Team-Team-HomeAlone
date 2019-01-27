@@ -11,6 +11,7 @@ public class GhostAI : MonoBehaviour
     [SerializeField] GameObject GhostBody;
     public int Target = 0;
     public bool CaughtInUV = false;
+    public bool Beamed = false;
     NavMeshAgent agent;
     // Use this for initialization
     void Start()
@@ -40,18 +41,21 @@ public class GhostAI : MonoBehaviour
             {
                 PopProgress--;
             }
-            this.transform.GetChild(0).GetChild(1).GetComponent<SkinnedMeshRenderer>().enabled = true;
+            this.transform.GetChild(0).GetChild(1).GetComponent<SkinnedMeshRenderer>().enabled = false;
         }
         else
         {//caught
-            VectorMultiplier = Mathf.Sin(Time.time) / 100;// ghost bobbing
-            GhostBody.transform.position += new Vector3(0, VectorMultiplier, 0);
-            VectorMultiplier = 0.02f;
-            GhostBody.transform.localScale += (new Vector3(VectorMultiplier, VectorMultiplier, VectorMultiplier));
-            PopProgress += Time.deltaTime * 100;
-            agent.velocity = new Vector3(0f, 0f, 0f);
-            agent.speed = 0f;
-            agent.acceleration = 0f;
+            //VectorMultiplier = Mathf.Sin(Time.time) / 100;// ghost bobbing
+            //GhostBody.transform.position += new Vector3(0, VectorMultiplier, 0);
+            if (Beamed)
+            {
+                VectorMultiplier = 0.02f;
+                GhostBody.transform.localScale += (new Vector3(VectorMultiplier, VectorMultiplier, VectorMultiplier));
+                PopProgress += Time.deltaTime * 100;
+                agent.velocity = new Vector3(0f, 0f, 0f);
+                agent.speed = 0f;
+                agent.acceleration = 0f;
+            }            
             if (PopProgress > 100f)
             {
                Pop();
@@ -127,8 +131,9 @@ public class GhostAI : MonoBehaviour
         }
         else if (_col.gameObject.tag == "Flashlight" && _col.gameObject.GetComponent<Light>().enabled)
         {
-            //Debug.Log("Ghost stuck in light");
+            //   Debug.Log("Ghost stuck in light");
             this.gameObject.GetComponent<GhostAI>().CaughtInUV = true;
+            Beamed = _col.transform.parent.parent.parent.GetComponent<CSS_Player>().Firing;
         }
     }
     void OnTriggerEnter(Collider _col)

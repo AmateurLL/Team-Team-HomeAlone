@@ -13,6 +13,9 @@ TagManager:
   - FlickeringLight
   - Target
   - Flashlight
+  - Item
+  - BrokenTarget
+  - Beam
   layers:
   - Default
   - TransparentFX

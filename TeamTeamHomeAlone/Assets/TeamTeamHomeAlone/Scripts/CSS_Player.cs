@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine;
 
 public class CSS_Player : MonoBehaviour {
@@ -9,6 +10,7 @@ public class CSS_Player : MonoBehaviour {
     public GameObject m_LeftHand;
     private bool m_bLeftHandFree =  true;
     public Collider m_PickUpArea;
+    public bool Firing = false;
 
     void start()
     {
@@ -30,7 +32,16 @@ public class CSS_Player : MonoBehaviour {
             }    
         }
 
-        this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ConeCollider>().enabled = this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Light>().enabled;
+        if (this.GetComponent<FirstPersonController>().m_bTorchLight)
+        {
+            this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ConeCollider>().m_angle = 10f;//transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Light>().enabled;
+            Firing = true;
+        }
+        else
+        {
+            this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ConeCollider>().m_angle = 25f;//transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Light>().enabled;
+            Firing = false;
+        }        
     }
 
     void OnTriggerEnter(Collider Col)
