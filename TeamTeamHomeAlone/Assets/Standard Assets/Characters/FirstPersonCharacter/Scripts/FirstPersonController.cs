@@ -28,6 +28,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
+        private bool m_GunBob;
+
         private Camera m_Camera;
         public GameObject m_Torch;
         private Light m_TorchLight;
@@ -39,6 +41,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private CollisionFlags m_CollisionFlags;
         private bool m_PreviouslyGrounded;
         private Vector3 m_OriginalCameraPosition;
+        private Vector3 m_OriginalGunPosition;
         private float m_StepCycle;
         private float m_NextStep;
         private bool m_Jumping;
@@ -54,6 +57,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
+            m_OriginalGunPosition = m_Torch.transform.localPosition;
             m_FovKick.Setup(m_Camera);
             m_HeadBob.Setup(m_Camera, m_StepInterval);
             m_StepCycle = 0f;
@@ -204,6 +208,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void UpdateCameraPosition(float speed)
         {
             Vector3 newCameraPosition;
+            Vector3 newGunPosition;
             if (!m_UseHeadBob)
             {
                 return;
@@ -215,13 +220,25 @@ namespace UnityStandardAssets.Characters.FirstPerson
                                       (speed*(m_IsWalking ? 1f : m_RunstepLenghten)));
                 newCameraPosition = m_Camera.transform.localPosition;
                 newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset();
+
+                // Gun 
+                //m_Torch.transform.localPosition =
+                //    m_HeadBob.DoHeadBob(m_CharacterController.velocity.magnitude +
+                //                           (speed * (m_IsWalking ? 0.1f : m_RunstepLenghten)));
+                newGunPosition = m_Torch.transform.localPosition;
+                newGunPosition.y = m_Torch.transform.localPosition.y - m_JumpBob.Offset();
             }
             else
             {
                 newCameraPosition = m_Camera.transform.localPosition;
                 newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset();
+
+                newGunPosition = m_Torch.transform.localPosition;
+                newGunPosition.y = m_OriginalGunPosition.y - m_JumpBob.Offset();
             }
             m_Camera.transform.localPosition = newCameraPosition;
+            m_Torch.transform.localPosition = newGunPosition;
+
         }
 
 
