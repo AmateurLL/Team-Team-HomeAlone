@@ -4,7 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum SoundEffects {
-    test = 0,
+    GhostDeath1 = 0,
+    GhostDeath2,
+    GhostDeath3,
+    GhostDeath4,
+    GhostExpand,
+    WeaponTurnOn,
 }
 
 public enum MusicTracks {
@@ -40,12 +45,9 @@ namespace DigitalRuby.SoundManagerNamespace
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1)) {
-                PlaySound(SoundEffects.test);
+                PlaySound(SoundEffects.GhostDeath1);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha2)) {
-                PlayMusic(MusicTracks.testmusic);
-            }
         }
 
 
