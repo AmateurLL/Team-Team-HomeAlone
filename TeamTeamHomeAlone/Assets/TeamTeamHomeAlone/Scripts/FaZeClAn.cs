@@ -17,7 +17,7 @@ public class FaZeClAn : MonoBehaviour {
 
     public void Play()
     {
-        SceneManager.LoadScene(("PrototypeTestScene"));
+        SceneManager.LoadScene(("MainGame"));
     }
 
     public void Quit()

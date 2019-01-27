@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine;
 
-public class CSS_Player : MonoBehaviour {
+public class CSS_Player : MonoBehaviour
+{
 
     float fThrowForce = 666;
     public GameObject m_PickedUpObj;
     public GameObject m_LeftHand;
-    private bool m_bLeftHandFree =  true;
+    private bool m_bLeftHandFree = true;
     public Collider m_PickUpArea;
     public bool Firing = false;
 
@@ -19,11 +20,12 @@ public class CSS_Player : MonoBehaviour {
     {
         m_PickUpArea = GetComponent<BoxCollider>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-        if(Input.GetKeyDown(KeyCode.E))
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (m_bLeftHandFree == false)
             {
@@ -33,8 +35,8 @@ public class CSS_Player : MonoBehaviour {
             else
             {
                 PickUp();
-                
-            }    
+
+            }
         }
 
         if (this.GetComponent<FirstPersonController>().m_bTorchLight)
@@ -52,12 +54,12 @@ public class CSS_Player : MonoBehaviour {
 
             //Mute while not firing
             WeaponLoop.mute = true;
-        }        
+        }
     }
 
     void OnTriggerEnter(Collider Col)
     {
-        if(Col.gameObject.tag == "Item" || Col.gameObject.tag == "Moveable" || Col.gameObject.tag == "Lure")
+        if (Col.gameObject.tag == "Item" || Col.gameObject.tag == "Moveable" || Col.gameObject.tag == "Lure")
         {
             if (!m_PickedUpObj)
             {
@@ -69,11 +71,11 @@ public class CSS_Player : MonoBehaviour {
 
     void OnTriggerExit(Collider col)
     {
-        if(col.gameObject.tag == "Item" && col.gameObject == m_PickedUpObj ||
+        if (col.gameObject.tag == "Item" && col.gameObject == m_PickedUpObj ||
             col.gameObject.tag == "Moveable" && col.gameObject == m_PickedUpObj ||
             col.gameObject.tag == "Lure" && col.gameObject == m_PickedUpObj)
         {
-            if(m_bLeftHandFree == true)
+            if (m_bLeftHandFree == true)
             {
                 m_PickedUpObj = null;
             }
@@ -120,9 +122,9 @@ public class CSS_Player : MonoBehaviour {
                 m_bLeftHandFree = false;
             }
         }
-        
 
-        
+
+
         //Debug.Log("PickingUp");
     }
 
@@ -132,7 +134,7 @@ public class CSS_Player : MonoBehaviour {
         {
             return;
         }
-        
+
 
         if (m_PickedUpObj.tag == "Item" || m_PickedUpObj.tag == "Moveable")
         {
@@ -152,5 +154,4 @@ public class CSS_Player : MonoBehaviour {
         m_PickedUpObj = null;
         m_bLeftHandFree = true;
     }
-
 }

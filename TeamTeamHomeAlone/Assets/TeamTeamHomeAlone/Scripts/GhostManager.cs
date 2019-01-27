@@ -36,10 +36,10 @@ public class GhostManager : MonoBehaviour
             Debug.Log("Ghosts Win!");
             CSS_GameManager.instance.RestartGame();
         }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.P)) { SpawnGhost(3); }
-        }
+        //else
+        //{
+        //    if (Input.GetKeyDown(KeyCode.P)) { SpawnGhost(3); }
+        //}
     }
 
     public void SpawnWaveDelay()

@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/TeamTeamHomeAlone/Scene/MainMenu.unity
+    guid: 0f39de1d9c44a644ab13cc408c0e03fd
+  - enabled: 1
+    path: Assets/MainGame.unity
+    guid: 9e78c24ebdae6bf4d86bfc3db741bfea

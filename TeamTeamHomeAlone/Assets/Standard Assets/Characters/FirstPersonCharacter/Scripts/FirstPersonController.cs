@@ -80,10 +80,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             //    //m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             //}
 
-            m_ActivateTorch = Input.GetMouseButtonDown(0);
+            //m_ActivateTorch = Input.GetMouseButtonDown(0);
  
 
-            if (m_ActivateTorch)
+            if (Input.GetMouseButton(0))
             {              
                 if (!m_bTorchLight)
                 {
@@ -91,12 +91,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_bTorchLight = true;
                     //Debug.Log("Torch On");
                 }
-                else
-                {
-                    m_TorchParticle.Stop();// = !m_TorchParticle.enabled;
-                    m_bTorchLight = false;
-                    //Debug.Log("Torch Off");
-                }
+            }
+            else
+            {
+                m_TorchParticle.Stop();// = !m_TorchParticle.enabled;
+                m_bTorchLight = false;
+                //Debug.Log("Torch Off");
             }
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)

@@ -8,6 +8,9 @@ public class CSS_GameManager : MonoBehaviour {
     static public CSS_GameManager instance;
     public bool m_bGameOver = false;
 
+    [SerializeField]
+    GameObject GhostsWinText;
+
 
     void Awake()
     {
@@ -28,6 +31,12 @@ public class CSS_GameManager : MonoBehaviour {
 
 
     public void RestartGame()
+    {
+        GhostsWinText.SetActive(true);
+        Invoke("Restart", 5.0f);
+    }
+
+    void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
