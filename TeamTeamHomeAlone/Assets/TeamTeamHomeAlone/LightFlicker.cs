@@ -30,6 +30,7 @@ public class LightFlicker : MonoBehaviour {
         {
             float newIntensity = ChosenFlickerCurve.Evaluate(TimeCounter);
             _light.intensity = newIntensity;
+            this.GetComponent<AudioSource>().volume = newIntensity;
             TimeCounter += Time.deltaTime;
         }
         else

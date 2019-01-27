@@ -67,8 +67,8 @@ public class GhostInteractions : MonoBehaviour {
                         switch (_object.tag)
                         {
                             case "Moveable":
-                                int rand = Random.Range(1, 3);
-                                if (rand == 1)
+                                int rand = Random.Range(1, 4);
+                                if (rand == 1 || rand == 2)
                                     _object.tag = "Moveable_Push";
                                 else
                                 {
