@@ -146,8 +146,6 @@ public class GhostInteractions : MonoBehaviour {
                         if (_object.CompareTag("FlickeringLight")) {
                             //This object if a flickering Spot Light
                             _object.GetComponent<LightFlicker>().StartFlickering();
-                            Debug.Log("Start Flciker");
-
                         }
 
 
@@ -197,7 +195,6 @@ public class GhostInteractions : MonoBehaviour {
         if (collider.gameObject.CompareTag("FlickeringLight"))
         {
             m_InteractableObjects.Add(collider.gameObject);
-            Debug.Log("added Spotlight");
         }
 
     }

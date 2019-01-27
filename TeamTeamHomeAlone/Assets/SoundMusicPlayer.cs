@@ -10,6 +10,22 @@ public enum SoundEffects {
     GhostDeath4,
     GhostExpand,
     WeaponTurnOn,
+    FootStep1,
+    FootStep2,
+    FootStep3,
+    FootStep4,
+    FootStep5,
+    FootStep6,
+    FootStep7,
+    FootStep8,
+    OutsideStep1,
+    OutsideStep2,
+    OutsideStep3,
+    OutsideStep4,
+    OutsideStep5,
+    OutsideStep6,
+    OutsideStep7,
+    OutsideStep8,
 }
 
 public enum MusicTracks {
