@@ -13,6 +13,10 @@ public class GhostAI : MonoBehaviour
     public bool CaughtInUV = false;
     public bool Beamed = false;
     NavMeshAgent agent;
+
+
+    [SerializeField] 
+    AudioSource InflateSound;
     // Use this for initialization
     void Start()
     {
@@ -55,10 +59,21 @@ public class GhostAI : MonoBehaviour
                 agent.velocity = new Vector3(0f, 0f, 0f);
                 agent.speed = 0f;
                 agent.acceleration = 0f;
-            }            
+
+                //if the sound isn't already playing, play it
+                if (!InflateSound.isPlaying)
+                    InflateSound.Play();
+
+            }
+            else {
+                //if the sound is playing and no longer being beamed. Stop
+                if (InflateSound.isPlaying)
+                    InflateSound.Stop();
+            }
             if (PopProgress > 100f)
             {
-               Pop();
+                Pop();
+                InflateSound.Stop();
             }
             this.transform.GetChild(0).GetChild(1).GetComponent<SkinnedMeshRenderer>().enabled = true;
         }

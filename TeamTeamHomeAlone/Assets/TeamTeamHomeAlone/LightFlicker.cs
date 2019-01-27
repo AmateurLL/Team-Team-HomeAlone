@@ -24,6 +24,10 @@ public class LightFlicker : MonoBehaviour {
             _lights.Add(_light);
         }
 
+        if (this.GetComponent<Light>() != null) {
+            _lights.Add(this.GetComponent<Light>());
+        }
+
 
     }
 	
@@ -37,7 +41,7 @@ public class LightFlicker : MonoBehaviour {
             {
                 _light.intensity = newIntensity;
             }
-           
+
             TimeCounter += Time.deltaTime;
         }
         else

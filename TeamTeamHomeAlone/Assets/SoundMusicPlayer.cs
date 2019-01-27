@@ -26,6 +26,8 @@ public enum SoundEffects {
     OutsideStep6,
     OutsideStep7,
     OutsideStep8,
+    PickUp,
+    Throw,
 }
 
 public enum MusicTracks {

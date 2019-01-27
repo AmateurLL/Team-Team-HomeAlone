@@ -46,24 +46,29 @@ public class GhostInteractions : MonoBehaviour {
             }
         }
 
-        int rand = Random.Range(1, 5);
-
-        switch (rand)
+        //Only play if sound mananger exists
+        if (DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance != null)
         {
-            case 1:
-                DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.GhostDeath1);
-                break;
-            case 2:
-                DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.GhostDeath2);
-                break;
-            case 3:
-                DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.GhostDeath3);
-                break;
-            case 4:
-                DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.GhostDeath4);
-                break;
-            default:
-                break;
+
+            int rand = Random.Range(1, 5);
+
+            switch (rand)
+            {
+                case 1:
+                    DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.GhostDeath1);
+                    break;
+                case 2:
+                    DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.GhostDeath2);
+                    break;
+                case 3:
+                    DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.GhostDeath3);
+                    break;
+                case 4:
+                    DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.GhostDeath4);
+                    break;
+                default:
+                    break;
+            }
         }
          
     }
