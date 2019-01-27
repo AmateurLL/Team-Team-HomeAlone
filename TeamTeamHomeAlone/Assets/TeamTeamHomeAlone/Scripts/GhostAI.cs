@@ -40,7 +40,7 @@ public class GhostAI : MonoBehaviour
             {
                 PopProgress--;
             }
-            this.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+            this.transform.GetChild(0).GetChild(1).GetComponent<SkinnedMeshRenderer>().enabled = true;
         }
         else
         {//caught
@@ -56,7 +56,7 @@ public class GhostAI : MonoBehaviour
             {
                Pop();
             }
-            this.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+            this.transform.GetChild(0).GetChild(1).GetComponent<SkinnedMeshRenderer>().enabled = true;
         }
 
         if (Tic > 1.0f)

@@ -22,26 +22,14 @@ public class CSS_Player : MonoBehaviour {
         {
             if (m_bLeftHandFree == false)
             {
-                //Throw
                 Throw();
-                //Debug.Log("Fast BALL!!");
-
-                //PutDown Neatly
-                
-
             }
             else
             {
                 PickUp();
-                //Debug.Log("Touch!!!");
-            }
-            
+            }    
         }
 
-        //if (!m_bLeftHandFree && m_PickedUpObj)
-        //{
-        //    m_PickedUpObj.transform.position = m_LeftHand.transform.position;
-        //}
         this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ConeCollider>().enabled = this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Light>().enabled;
     }
 
@@ -78,8 +66,6 @@ public class CSS_Player : MonoBehaviour {
             return;
         }
 
-        
-
         // Setting Physical properties
         if (m_PickedUpObj.tag == "Item" || m_PickedUpObj.tag == "Moveable")
         {
@@ -90,22 +76,28 @@ public class CSS_Player : MonoBehaviour {
             m_PickedUpObj.GetComponent<Rigidbody>().useGravity = false;
             m_PickedUpObj.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
             m_PickedUpObj.GetComponent<Collider>().enabled = false;
+
+            m_bLeftHandFree = false;
         }
         else if (m_PickedUpObj.tag == "Lure")
         {
+            if (m_PickedUpObj.GetComponent<Lure>().On == false)
+            {
+                // Setting Position
+                m_PickedUpObj.transform.SetParent(m_LeftHand.transform);
+                m_PickedUpObj.transform.localRotation = m_LeftHand.transform.rotation;
+                m_PickedUpObj.transform.position = m_LeftHand.transform.position;
+                m_PickedUpObj.GetComponent<Rigidbody>().useGravity = false;
+                m_PickedUpObj.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                m_PickedUpObj.GetComponent<BoxCollider>().enabled = false;
 
-            // Setting Position
-            m_PickedUpObj.transform.SetParent(m_LeftHand.transform);
-            m_PickedUpObj.transform.localRotation = m_LeftHand.transform.rotation;
-            m_PickedUpObj.transform.position = m_LeftHand.transform.position;
-            m_PickedUpObj.GetComponent<Rigidbody>().useGravity = false;
-            m_PickedUpObj.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
-            m_PickedUpObj.GetComponent<BoxCollider>().enabled = false;
+                m_bLeftHandFree = false;
+            }
         }
         
 
-        m_bLeftHandFree = false;
-        Debug.Log("PickingUp");
+        
+        //Debug.Log("PickingUp");
     }
 
     private void Throw()
@@ -114,7 +106,7 @@ public class CSS_Player : MonoBehaviour {
         {
             return;
         }
-        m_PickedUpObj.transform.SetParent(null);
+        
 
         if (m_PickedUpObj.tag == "Item" || m_PickedUpObj.tag == "Moveable")
         {
@@ -130,10 +122,8 @@ public class CSS_Player : MonoBehaviour {
             m_PickedUpObj.transform.localRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
             m_PickedUpObj.GetComponent<BoxCollider>().enabled = true;
         }
-        
+        m_PickedUpObj.transform.SetParent(null);
         m_PickedUpObj = null;
-
-
         m_bLeftHandFree = true;
     }
 

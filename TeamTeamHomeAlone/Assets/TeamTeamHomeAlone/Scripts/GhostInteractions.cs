@@ -32,6 +32,42 @@ public class GhostInteractions : MonoBehaviour {
 
     private bool PushWaveActivated = false;
 
+    void OnDestroy() {
+        foreach (var _object in m_InteractableObjects)
+        {
+            if (_object.tag.Contains("Moveable"))
+            {
+                _object.tag = "Moveable";
+                _object.GetComponent<Rigidbody>().useGravity = true;
+            }
+            else if (_object.CompareTag("FlickeringLight"))
+            {
+                _object.GetComponent<LightFlicker>().StopFlickering();
+            }
+        }
+
+        int rand = Random.Range(1, 5);
+
+        switch (rand)
+        {
+            case 1:
+                DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.GhostDeath1);
+                break;
+            case 2:
+                DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.GhostDeath2);
+                break;
+            case 3:
+                DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.GhostDeath3);
+                break;
+            case 4:
+                DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.GhostDeath4);
+                break;
+            default:
+                break;
+        }
+         
+    }
+
 
     void Start() {
         if (m_InteractCollider == null) {
@@ -67,8 +103,8 @@ public class GhostInteractions : MonoBehaviour {
                         switch (_object.tag)
                         {
                             case "Moveable":
-                                int rand = Random.Range(1, 3);
-                                if (rand == 1)
+                                int rand = Random.Range(1, 4);
+                                if (rand == 1 || rand == 2)
                                     _object.tag = "Moveable_Push";
                                 else
                                 {
@@ -110,8 +146,6 @@ public class GhostInteractions : MonoBehaviour {
                         if (_object.CompareTag("FlickeringLight")) {
                             //This object if a flickering Spot Light
                             _object.GetComponent<LightFlicker>().StartFlickering();
-                            Debug.Log("Start Flciker");
-
                         }
 
 
@@ -161,7 +195,6 @@ public class GhostInteractions : MonoBehaviour {
         if (collider.gameObject.CompareTag("FlickeringLight"))
         {
             m_InteractableObjects.Add(collider.gameObject);
-            Debug.Log("added Spotlight");
         }
 
     }
