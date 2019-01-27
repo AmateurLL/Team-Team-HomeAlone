@@ -81,6 +81,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             //}
 
             m_ActivateTorch = Input.GetMouseButtonDown(0);
+ 
 
             if (m_ActivateTorch)
             {              

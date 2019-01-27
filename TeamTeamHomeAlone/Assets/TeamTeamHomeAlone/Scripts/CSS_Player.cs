@@ -12,6 +12,9 @@ public class CSS_Player : MonoBehaviour {
     public Collider m_PickUpArea;
     public bool Firing = false;
 
+    [SerializeField]
+    AudioSource WeaponLoop;
+
     void start()
     {
         m_PickUpArea = GetComponent<BoxCollider>();
@@ -25,10 +28,12 @@ public class CSS_Player : MonoBehaviour {
             if (m_bLeftHandFree == false)
             {
                 Throw();
+                DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.Throw);
             }
             else
             {
                 PickUp();
+                
             }    
         }
 
@@ -36,11 +41,17 @@ public class CSS_Player : MonoBehaviour {
         {
             this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ConeCollider>().m_angle = 10f;//transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Light>().enabled;
             Firing = true;
+
+            //Unmute to play the sound
+            WeaponLoop.mute = false;
         }
         else
         {
             this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ConeCollider>().m_angle = 25f;//transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Light>().enabled;
             Firing = false;
+
+            //Mute while not firing
+            WeaponLoop.mute = true;
         }        
     }
 
@@ -88,6 +99,8 @@ public class CSS_Player : MonoBehaviour {
             m_PickedUpObj.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
             m_PickedUpObj.GetComponent<Collider>().enabled = false;
 
+            DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.PickUp);
+
             m_bLeftHandFree = false;
         }
         else if (m_PickedUpObj.tag == "Lure")
@@ -101,6 +114,8 @@ public class CSS_Player : MonoBehaviour {
                 m_PickedUpObj.GetComponent<Rigidbody>().useGravity = false;
                 m_PickedUpObj.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 m_PickedUpObj.GetComponent<BoxCollider>().enabled = false;
+
+                DigitalRuby.SoundManagerNamespace.SoundMusicPlayer.Instance.PlaySound(SoundEffects.PickUp);
 
                 m_bLeftHandFree = false;
             }
