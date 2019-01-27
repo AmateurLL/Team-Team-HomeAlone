@@ -9,7 +9,7 @@ public class LightFlicker : MonoBehaviour {
 
     AnimationCurve ChosenFlickerCurve;
 
-    Light _light;
+    List<Light> _lights = new List<Light>();
 
     float StartingIntensity;
 
@@ -19,8 +19,11 @@ public class LightFlicker : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        _light = this.gameObject.GetComponent<Light>();
-        StartingIntensity = _light.intensity;
+        foreach (var _light in this.gameObject.GetComponentsInChildren<Light>())
+        {
+            _lights.Add(_light);
+        }
+
 
     }
 	
@@ -29,7 +32,12 @@ public class LightFlicker : MonoBehaviour {
         if (IsFlickering)
         {
             float newIntensity = ChosenFlickerCurve.Evaluate(TimeCounter);
-            _light.intensity = newIntensity;
+
+            foreach (var _light in _lights)
+            {
+                _light.intensity = newIntensity;
+            }
+           
             TimeCounter += Time.deltaTime;
         }
         else
@@ -49,7 +57,11 @@ public class LightFlicker : MonoBehaviour {
 
     public void StopFlickering() {
         IsFlickering = false;
-        _light.intensity = StartingIntensity;
+        foreach (var _light in _lights)
+        {
+            _light.intensity = 1f;
+        }
+        
     }
 
 }
