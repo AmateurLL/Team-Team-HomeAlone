@@ -32,7 +32,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private Camera m_Camera;
         public GameObject m_Torch;
-        private Light m_TorchLight;
+        private Light m_TorchLight;//deprecated
+        private ParticleSystem m_TorchParticle;
         private bool m_Jump;
         private float m_YRotation;
         private Vector2 m_Input;
@@ -47,7 +48,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
-        private bool m_bTorchLight = false;
+        public bool m_bTorchLight = false;
         private bool m_ActivateTorch = false;
         public float m_fSprintTime = 8.0f;
 
@@ -65,7 +66,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
-            m_TorchLight = m_Torch.GetComponentInChildren<Light>();
+            m_TorchParticle = m_Torch.GetComponentInChildren<ParticleSystem>();
         }
 
 
@@ -85,13 +86,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {              
                 if (!m_bTorchLight)
                 {
-                    m_TorchLight.enabled = !m_TorchLight.enabled;
+                    m_TorchParticle.Play();// .enabled= !m_TorchParticle.enabled;
                     m_bTorchLight = true;
                     //Debug.Log("Torch On");
                 }
                 else
                 {
-                    m_TorchLight.enabled = !m_TorchLight.enabled;
+                    m_TorchParticle.Stop();// = !m_TorchParticle.enabled;
                     m_bTorchLight = false;
                     //Debug.Log("Torch Off");
                 }
